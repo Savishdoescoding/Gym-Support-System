@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://geist.vercel.app/font.css">
+
+  <link ref="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/shared-ui.css">
+
+  <meta charset="UTF-8">
+
+  <title>Haven | Home</title>
+  <link rel="icon" type="image/png" href="../media/9391703.png">
+</head>
+
+<body>
+  <header class="navbar">
+  <div class="nav-left">
+    <img src="../media/logo/logo.png" alt="Haven Logo" class="logo-icon" />
+    <div class="logo">Haven</div>
+  </div>
+  <nav class="nav-center">
+    <div class="nav-pill">
+      <a href="#home">Home</a><span class="nav-divider">|</span>
+      <a href="#products">Products</a><span class="nav-divider">|</span>
+      <a href="#workouts">Workouts</a><span class="nav-divider">|</span>
+      <a href="#exercises">Exercises</a><span class="nav-divider">|</span>
+      <a href="#about us">About Us</a>
+    </div>
+  </nav>
+  <div class="nav-right nav-auth">
+    <a href="../forms/login.html" class="btn-login mono-text">Login</a>
+    <a href="../forms/registration.html" class="btn-signup mono-text">Sign Up</a>
+    <button class="hamburger" onclick="toggleModal()">
+      <img src="../media/menu.png" alt="Menu" class="hamburger-icon">
+    </button>
+  </div>
+</header>
+
+<section class="hero-subsection">
+  <div class="hero-left">
+    <h1 class="hero-title" style="padding-left: 60px; padding-top: 100px;">
+      <span section="home"class="mono-text"><strong>Track & Plan Workouts with </strong></span><span class="gradient-text  mono-text"><strong>Haven Services</strong> </span>
+    </h1>
+    <p class="hero-description" style="padding-left: 60px; color: #6B7280; font-family: 'Gesit', sans-serif;">
+      Plan workouts, access elite plans, use personalized metrics, and connect with a supportive community
+    </p>
+    <div class="cta-buttons" style="padding-left: 60px;">
+      <button class="cta-button mono-text">Get Started →</button>
+      <a href="book-demo.html" class="cta-link mono-text" style="text-decoration: none;">VIEW EXERCISES</a>
+    </div>
+  </div>
+  <div class="hero-right" style="padding-top: 90px;">
+    <div class="haven-gradient-ring">
+      <img src="../media/portaint.jpg" alt="Profile"/>
+    </div>
+  </div>
+</section>
+
+<div class="haven-banner" style="padding-top: 90px; padding-bottom: 50px;">
+  <img src="../media/long.png" alt="Homepage Banner" />
+</div>
+
+<section class="hero-text-below" style="background-color: #f7f7f7;">
+  <h1 class="hero-title">
+    <span class="mono-text"><strong>Create a</strong></span><span class="gradient-text  mono-text"><strong> Personalized </strong></span>
+    <br><span class="mono-text"><strong>workout plan exclusive only to you!</strong></span>
+  </h1>
+  <p class="hero-description" style="color: #6B7280; font-family: 'Gesit', sans-serif;">
+    Personalize your training by building plans with your preferred exercises, rest time, supersets, equipment, or frequency
+  </p>
+  <div class="cta-buttons" style="padding-left: 540px;">
+    <button class="cta-button mono-text">Try now for FREE</button>
+
+    <a href="book-demo.html" class="cta-link mono-text" style="text-decoration: none;">WORKOUT PLANS</a>
+  </div>
+
+</section>
+
+
+  
+  <footer class="haven-footer">
+  <div class="footer-main">
+    <div class="footer-logo-box">
+      <img src="../media/logo/logo.png" alt="Haven Logo" class="footer-logo">
+      <h4 class="haven-text">Haven</h4>
+    </div>
+
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h4><strong>ABOUT</strong></h4>
+        <ul>
+          <li class="mono-text"><a href="../main/about.html">About Haven</a></li>
+          <li class="mono-text"><a href="#">Terms & Conditions</a></li>
+          <li class="mono-text"><a href="../submenus/privary-policies.html#privacy-policies">Privacy Policies</a></li>
+          <li class="mono-text"><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4><strong>DEVELOPED BY</strong></h4>
+        <ul>
+          <li class="mono-text">Marc, Nickole, MJ, & Wilcor</li>
+          <li class="mono-text">BSIT - AI22</li>
+          <li class="mono-text"><a href="https://www.lnu.edu.ph/">Leyte Normal University</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4><strong>CONTACT</strong></h4>
+        <ul>
+          <li class="mono-text">Email: <a href="mailto:inquiries.haven@gmail.com">inquiries.haven@gmail.com</a></li>
+          <li class="mono-text">Contact: +63 998 153 3894</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-copyright">
+      <p class="copyright-text">© 2026 Haven. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<div id="modal-overlay" class="overlay hidden">
+  <div class="modal-submenu">
+    <h2 class="modal-title">Menu</h2>
+
+    <button class="modal-btn" onclick="openContent('list')">Developers 👨‍💻</button>
+    <button class="modal-btn" onclick="openContent('fees')">Routines 📅</button>
+    <button class="modal-btn" onclick="openContent('date')">Contact Us 📞</button>
+    <button class="modal-btn" onclick="openContent('fees')">FAQ ❓</button>
+    <button class="modal-btn" onclick="openContent('faq')">Blog ✍️</button>
+    <button class="modal-btn" onclick="openContent('how')">How to Use 📖</button>
+
+  </div>
+
+</div>
+  <div id="modal-content-list" class="modal-content hidden"> <a href="../main/list-of-girlfriends.html">Developers</a></div>
+  <div id="modal-content-date" class="modal-content hidden"><a href="../main/date-Plan.html">Contact Us</a></div>
+  <div id="modal-content-fees" class="modal-content hidden"><a href="../main/usage-Fees.html">FAQ</a></div>
+  <div id="modal-content-faq" class="modal-content hidden"><a href="../submenus/rental-faq.html">Blog</a></div>
+  <div id="modal-content-how" class="modal-content hidden"><a href="../submenus/rental-faq.html">How to Use</a></div>
+<script>
+  function toggleModal() {
+  const overlay = document.getElementById("modal-overlay");
+  overlay.classList.toggle("hidden");
+}
+
+function openContent(section) {
+  // Hide all content blocks
+  document.querySelectorAll(".modal-content").forEach(el => el.classList.add("hidden"));
+
+  // Show selected block
+  const target = document.getElementById(`modal-content-${section}`);
+  if (target) target.classList.remove("hidden");
+}
+
+// Close modal on ESC key
+document.addEventListener("keydown", (e) => {
+  const overlay = document.getElementById("modal-overlay");
+  if (e.key === "Escape" && overlay && !overlay.classList.contains("hidden")) {
+    overlay.classList.add("hidden");
+  }
+});
+
+// Optional: close when clicking outside modal-submenu
+document.addEventListener("click", (e) => {
+  const overlay = document.getElementById("modal-overlay");
+  if (overlay && !overlay.classList.contains("hidden") && e.target === overlay) {
+    overlay.classList.add("hidden");
+  }
+});
+
+// Stacked carousel functionality
+const track = document.querySelector('.carousel-track');
+const cards = Array.from(track.querySelectorAll('.profile-link'));
+
+document.querySelector('.carousel-btn.next').addEventListener('click', () => {
+  if (cards.length > 1) {
+    const first = cards.shift();
+    cards.push(first);
+    track.appendChild(first);
+  }
+});
+
+document.querySelector('.carousel-btn.prev').addEventListener('click', () => {
+  if (cards.length > 1) {
+    const last = cards.pop();
+    cards.unshift(last);
+    track.insertBefore(last, track.firstChild);
+  }
+});
+
+</script>
+</body>
+</html>
+
+
+<!---->
