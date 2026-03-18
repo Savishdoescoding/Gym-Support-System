@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Gym Support System</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+
+    <h1>Log-In</h1>
+        <body>
+
+            <div>
+            <label for="username">USERNAME:</label>
+            <input type="text" 
+                        minlength="2" 
+                        maxlength="20" 
+                        id="username" 
+                        name="username" 
+                        required>
+            </div>
+
+            <div>
+            <label for="password">PASSWORD:</label>
+            <input type="password"
+                        minlength="8"
+                        maxlength="20"
+                        id="password"
+                        name="password"
+                        required>
+            </div>   
+
+            <div> 
+                <input type="checkbox" onclick="togglePassword()" id="showPassword" onkeydown="togglePassword">
+                <label for="showPassword">Show Password</label>
+            </div>
+
+            <input type="submit" value="Login">
+     
+</body>
+</html>
