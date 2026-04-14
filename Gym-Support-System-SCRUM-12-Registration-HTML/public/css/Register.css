@@ -1,0 +1,156 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Blurred background */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../images/gym.jpg') no-repeat center center;
+    background-size: cover;
+    filter: blur(4px);
+    z-index: -1;
+}
+
+.container {
+    width: 90%;
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #ffffff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 6px 8px;
+    margin-top: 3px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button[type="Submit"]{
+    margin-top: 10px
+}
+input:focus, select:focus {
+    border-color: #2a5298;
+    outline: none;
+}
+
+.gender {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.gender input {
+    width: auto;
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background: #2a5298;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1e3c72;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.field-error {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+.success-msg {
+    font-size: 12px;
+    display: block;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.email-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.email-row input {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.email-row button {
+    width: auto;
+    padding: 10px 16px;
+    font-size: 13px;
+    background-color: #e63946;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.password-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.password-row input {
+    flex: 1;
+}
+
+.password-row button {
+    width: auto;
+    margin-top: 0;
+    padding: 6px 10px;
+    font-size: 16px;
+    background: #ccc;
+    color: black;
+    border-radius: 5px;
+}
