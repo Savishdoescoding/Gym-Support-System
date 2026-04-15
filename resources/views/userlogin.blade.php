@@ -2,8 +2,11 @@
 <html lang="en">
 
 <head>
-    <title>Gym Support System</title>
-    <link rel="stylesheet" href="{{ asset('css/index.css') }}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Gym Support System - Login</title>
+    <link rel="stylesheet" href="{{ asset('css/userlogin.css') }}" />
 </head>
 
 <body>
@@ -11,12 +14,12 @@
         <h1>Log-In</h1>
 
         @if ($errors->any())
-            <div class="error">
-                {{ $errors->first() }}
+            <div class="error" role="alert">
+                <strong>Login Failed:</strong> {{ $errors->first() }}
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}" novalidate>
             @csrf
 
             <div class="input-group">
@@ -37,25 +40,29 @@
                        minlength="8"
                        maxlength="20"
                        placeholder="Enter Password"
-                       required />
+                       required
+                       aria-describedby="password-error" />
+                @error('password')
+                    <span id="password-error" class="error-text">{{ $message }}</span>
+                @enderror
             </div>
 
             <div class="toggle-password">
                 <input type="checkbox"
-                       onclick="togglePassword()"
-                       id="showPassword" />
+                       id="showPassword"
+                       aria-label="Show password" />
                 <label for="showPassword">Show Password</label>
             </div>
 
-            <input type="submit" value="Login" />
+            <button type="submit" class="login-btn">Login</button>
         </form>
     </div>
 
     <script>
-        function togglePassword() {
+        document.getElementById('showPassword')?.addEventListener('change', function() {
             const pwd = document.getElementById('password');
-            pwd.type = pwd.type === 'password' ? 'text' : 'password';
-        }
+            pwd.type = this.checked ? 'text' : 'password';
+        });
     </script>
 
 </body>

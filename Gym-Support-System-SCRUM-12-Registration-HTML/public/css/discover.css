@@ -1,0 +1,209 @@
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+.note-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    padding: 20px;
+    transition: border-color 0.2s;
+}
+.note-card:hover {
+    border-color: var(--cyan-glow);
+}
+.note-date {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 8px;
+}
+.note-body {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    font-weight: 300;
+}
+.note-tag {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(0, 188, 212, 0.1);
+    color: var(--cyan);
+    padding: 3px 10px;
+    border: 1px solid var(--cyan-glow);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--muted);
+}
+.empty-state svg {
+    width: 48px;
+    height: 48px;
+    stroke: rgba(0, 188, 212, 0.3);
+    fill: none;
+    stroke-width: 1.2;
+    margin-bottom: 16px;
+}
+.empty-state p {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.qa-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.qa-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    transition: border-color 0.2s;
+}
+.qa-card:hover {
+    border-color: rgba(0, 188, 212, 0.2);
+}
+.qa-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.qa-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--cyan);
+    font-weight: 500;
+}
+.qa-author {
+    font-size: 12px;
+    color: var(--muted);
+}
+.qa-time {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.25);
+    margin-left: auto;
+}
+.qa-question {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 8px;
+}
+.qa-preview {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.6;
+}
+.qa-footer {
+    display: flex;
+    gap: 16px;
+    margin-top: 14px;
+}
+.qa-stat {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.qa-stat svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+.badge-q {
+    font-size: 10px;
+    letter-spacing: 1px;
+    background: rgba(0, 188, 212, 0.1);
+    color: var(--cyan);
+    border: 1px solid var(--cyan-glow);
+    padding: 2px 8px;
+    text-transform: uppercase;
+}
+
+.feed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.feed-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    transition: border-color 0.2s;
+}
+.feed-card:hover {
+    border-color: rgba(0, 188, 212, 0.2);
+}
+.feed-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.feed-author {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+}
+.feed-role {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.25);
+}
+.feed-time {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.25);
+    margin-left: auto;
+}
+.feed-body {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.75;
+    font-weight: 300;
+}
+.feed-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+}
+.feed-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 12px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.2s;
+}
+.feed-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+.feed-btn:hover {
+    color: var(--cyan);
+}

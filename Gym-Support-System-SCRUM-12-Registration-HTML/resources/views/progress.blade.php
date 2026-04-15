@@ -33,7 +33,7 @@
     </div>
     <div class="content">
 
-
+      
       <div class="panel active" id="panel-history">
         <div class="cal-header">
           <div class="cal-month" id="cal-month-label">April 2026</div>
@@ -63,7 +63,7 @@
         </div>
       </div>
 
-
+      
       <div class="panel" id="panel-photos">
         <div class="upload-box" onclick="openModal('photo-modal')">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
@@ -164,3 +164,4 @@
 </script>
 </body>
 </html>
+

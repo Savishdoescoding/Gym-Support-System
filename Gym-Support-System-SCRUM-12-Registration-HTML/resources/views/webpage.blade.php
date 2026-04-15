@@ -20,7 +20,7 @@
       <li><a href="#">FAQ</a></li>
     </ul>
     <div class="nav-right">
-      <a href="{{ route('login') }}" class="btn-login">Login ▶</a>
+      <a href="dashboard/discover.html" class="btn-login">Login ▶</a>
     </div>
   </nav>
 
@@ -38,12 +38,14 @@
     <div class="hero-right">
       <div class="hero-img-box">
         <div class="img-placeholder">
-          <img src="{{ asset('images/gymimg1.jpg') }}" alt="Gym workout photo" loading="lazy">
+          <img src="images/gymimg1.jpg" alt="Gym photo">
         </div>
       </div>
       <div class="hero-img-box">
         <div class="img-placeholder">
-          <img src="{{ asset('images/gymimg2.jpg') }}" alt="Gym equipment photo" loading="lazy">
+          </svg>
+          <img src="images/gymimg2.jpg" alt="Gym photo">
+
         </div>
       </div>
     </div>
@@ -99,7 +101,7 @@
     </div>
   </div>
 
-
+  
   <footer>
     <div class="footer-inner">
       <div>
@@ -144,7 +146,7 @@
         <h4>Pages</h4>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="{{ route('discover') }}">Discover</a></li>
+          <li><a href="dashboard/discover.html">Discover</a></li>
           <li><a href="dashboard/progress.html">Progress</a></li>
           <li><a href="dashboard/exercises.html">Exercises</a></li>
           <li><a href="dashboard/settings.html">Settings</a></li>
