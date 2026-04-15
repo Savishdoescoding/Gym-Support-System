@@ -1,30 +1,21 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('webpage');
-})->name('home');
+Route::get('/', fn() => view('webpage'));
+
+Route::get('/login', function() {
+    return view('userlogin');
+})->name('login');
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', function () {
-        return view('webpage');
-    })->name('home');
-
-    Route::get('/discover', function () {
-        return view('discover');
-    })->name('discover');
-
-    Route::get('/exercises', function () {
-        return view('exercises');
-    })->name('exercises');
-
-    Route::get('/progress', function () {
-        return view('progress');
-    })->name('progress');
-
-    Route::get('/settings', function () {
-        return view('settings');
-    })->name('settings');
+    Route::get('/discover',  [DashboardController::class, 'discover'])->name('discover');
+    Route::get('/progress',  [DashboardController::class, 'progress'])->name('progress');
+    Route::get('/exercises', [DashboardController::class, 'exercises'])->name('exercises');
+    Route::get('/settings',  [DashboardController::class, 'settings'])->name('settings');
 });
