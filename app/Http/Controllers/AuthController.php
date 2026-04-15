@@ -12,7 +12,7 @@ class AuthController extends Controller
 
     public function login(Request $request) {
         $credentials = $request->validate([
-            'email'    => 'required|email',
+            'username' => 'required',
             'password' => 'required|min:8',
         ]);
 
@@ -21,7 +21,7 @@ class AuthController extends Controller
             return redirect()->route('discover');
         }
 
-        return back()->withErrors(['email' => 'Invalid email or password.'])->withInput();
+        return back()->withErrors(['username' => 'Invalid username or password.'])->withInput();
     }
 
     public function logout(Request $request) {

@@ -23,18 +23,13 @@
             @csrf
 
             <div class="input-group">
-                <label for="email">EMAIL:</label>
-                <input type="email"
-                       id="email"
-                       name="email"
-                       placeholder="Enter Email"
-                       value="{{ old('email') }}"
-                       required
-                       autofocus
-                       aria-describedby="email-error" />
-                @error('email')
-                    <span id="email-error" class="error-text">{{ $message }}</span>
-                @enderror
+                <label for="username">USERNAME:</label>
+                <input type="text"
+                       id="username"
+                       name="username"
+                       placeholder="Enter Username"
+                       value="{{ old('username') }}"
+                       required />
             </div>
 
             <div class="input-group">
