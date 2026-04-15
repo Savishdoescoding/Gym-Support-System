@@ -38,14 +38,12 @@
     <div class="hero-right">
       <div class="hero-img-box">
         <div class="img-placeholder">
-          <img src="images/gymimg1.jpg" alt="Gym photo">
+          <img src="{{ asset('images/gymimg1.jpg') }}" alt="Gym workout photo" loading="lazy">
         </div>
       </div>
       <div class="hero-img-box">
         <div class="img-placeholder">
-          </svg>
-          <img src="images/gymimg2.jpg" alt="Gym photo">
-
+          <img src="{{ asset('images/gymimg2.jpg') }}" alt="Gym equipment photo" loading="lazy">
         </div>
       </div>
     </div>
