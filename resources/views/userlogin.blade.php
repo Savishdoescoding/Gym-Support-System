@@ -20,12 +20,12 @@
             @csrf
 
             <div class="input-group">
-                <label for="email">EMAIL:</label>
-                <input type="email"
-                       id="email"
-                       name="email"
-                       placeholder="Enter Email"
-                       value="{{ old('email') }}"
+                <label for="username">USERNAME:</label>
+                <input type="text"
+                       id="username"
+                       name="username"
+                       placeholder="Enter Username"
+                       value="{{ old('username') }}"
                        required />
             </div>
 

@@ -10,7 +10,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/home', function () {
         return view('webpage');
-    })->name('home');
+    })->name('dashboard');
 
     Route::get('/discover', function () {
         return view('discover');
@@ -28,3 +28,5 @@ Route::middleware('auth')->group(function () {
         return view('settings');
     })->name('settings');
 });
+
+require __DIR__.'/auth.php';

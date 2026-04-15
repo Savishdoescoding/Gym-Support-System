@@ -20,7 +20,7 @@
       <li><a href="#">FAQ</a></li>
     </ul>
     <div class="nav-right">
-      <a href="dashboard/discover.html" class="btn-login">Login ▶</a>
+      <a href="{{ route('login') }}" class="btn-login">Login ▶</a>
     </div>
   </nav>
 
