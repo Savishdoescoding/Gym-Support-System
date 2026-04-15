@@ -101,7 +101,7 @@
     </div>
   </div>
 
-  
+
   <footer>
     <div class="footer-inner">
       <div>
@@ -146,7 +146,7 @@
         <h4>Pages</h4>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="dashboard/discover.html">Discover</a></li>
+          <li><a href="{{ route('discover') }}">Discover</a></li>
           <li><a href="dashboard/progress.html">Progress</a></li>
           <li><a href="dashboard/exercises.html">Exercises</a></li>
           <li><a href="dashboard/settings.html">Settings</a></li>
