@@ -52,6 +52,7 @@
                        id="showPassword"
                        aria-label="Show password" />
                 <label for="showPassword">Show Password</label>
+                <a href="{{ route('register') }}" class="signup-link">Don't have an account yet? Sign up now!</a>
             </div>
 
             <button type="submit" class="login-btn">Login</button>

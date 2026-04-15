@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('userregister');
     }
 
     /**
@@ -32,13 +32,27 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'age' => ['nullable', 'integer', 'min:13', 'max:120'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'phone_number' => ['nullable', 'string', 'max:20'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'username' => ['nullable', 'string', 'max:255', 'unique:'.User::class],
+            'height' => ['nullable', 'numeric', 'min:100', 'max:250'],
+            'weight' => ['nullable', 'numeric', 'min:20', 'max:300'],
+            'body_type' => ['nullable', 'string', 'in:ectomorph,mesomorph,endomorph,other'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'age' => $request->age,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
             'email' => $request->email,
+            'username' => $request->username,
+            'height' => $request->height,
+            'weight' => $request->weight,
+            'body_type' => $request->body_type,
             'password' => Hash::make($request->password),
         ]);
 
@@ -46,6 +60,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('discover', absolute: false));
     }
 }
