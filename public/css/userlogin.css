@@ -17,7 +17,7 @@ body {
 }
 
 .login-container {
-    width: min(100%, 420px);
+    width: min(100%, 550px);
     padding: 32px 28px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 20px;
