@@ -10,7 +10,12 @@ Route::get('/login', function() {
     return view('userlogin');
 })->name('login');
 
+Route::get('/register', function() {
+    return view('userregister');
+})->name('register');
+
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {

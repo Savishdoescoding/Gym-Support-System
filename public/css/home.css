@@ -61,6 +61,22 @@
 }
 .btn-login:hover { background: var(--dark2); }
 
+.btn-register {
+  background: var(--cyan);
+  color: var(--black);
+  border: none;
+  padding: 8px 24px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-register:hover { background: rgba(0, 188, 212, 0.8); }
+
 
 .hero {
   position: relative;

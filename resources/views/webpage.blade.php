@@ -20,6 +20,7 @@
       <li><a href="#">FAQ</a></li>
     </ul>
     <div class="nav-right">
+      <a href="{{ route('register') }}" class="btn-register">Register</a>
       <a href="{{ route('login') }}" class="btn-login">Login ▶</a>
     </div>
   </nav>
