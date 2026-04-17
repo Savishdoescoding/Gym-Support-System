@@ -10,13 +10,13 @@
 <body>
 <div class="page-wrap">
   <aside class="sidebar">
-    <div class="sb-logo"><a href="../index.html">GYM RAT</a><span>Fitness Tracking System</span></div>
+    <div class="sb-logo"><a href="{{ route('dashboard') }}">GYM RAT</a><span>Fitness Tracking System</span></div>
     <nav class="sb-nav">
-      <a class="sb-item" href="discover.html"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Discover</a>
-      <a class="sb-item" href="progress.html"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Progress</a>
-      <a class="sb-item" href="exercises.html"><svg viewBox="0 0 24 24"><path d="M6.5 6.5h11M6.5 17.5h11M3 10h3.5M3 14h3.5M17.5 10H21M17.5 14H21"/></svg>Exercises</a>
+      <a class="sb-item" href="{{ route('discover') }}"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Discover</a>
+      <a class="sb-item" href="{{ route('progress') }}"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Progress</a>
+      <a class="sb-item" href="{{ route('exercises') }}"><svg viewBox="0 0 24 24"><path d="M6.5 6.5h11M6.5 17.5h11M3 10h3.5M3 14h3.5M17.5 10H21M17.5 14H21"/></svg>Exercises</a>
       <div class="sb-section">Account</div>
-      <a class="sb-item active" href="settings.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</a>
+      <a class="sb-item active" href="{{ route('settings') }}"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</a>
     </nav>
     <div class="sb-bottom"><div class="sb-user"><div class="sb-avatar">MB</div><div><div class="sb-uname">Marc Kristan Bautista</div><div class="sb-urole">Pro Member</div></div></div></div>
   </aside>
@@ -30,7 +30,7 @@
     </div>
     <div class="content">
 
-      
+
       <div class="panel active" id="panel-account">
         <div class="settings-group">
           <div class="sg-title">Account Information</div>
@@ -83,7 +83,7 @@
         </div>
       </div>
 
-      
+
       <div class="panel" id="panel-profile">
         <div class="profile-photo-section">
           <div class="profile-avatar-lg">JD</div>
@@ -124,7 +124,7 @@
         <button class="btn-save-settings">Save Profile</button>
       </div>
 
-      
+
       <div class="panel" id="panel-privacy">
         <div class="settings-group">
           <div class="sg-title">Visibility</div>
@@ -140,7 +140,7 @@
         <button class="btn-save-settings">Save Privacy Settings</button>
       </div>
 
-      
+
       <div class="panel" id="panel-data">
         <div class="settings-group">
           <div class="sg-title">Your Data</div>
@@ -202,4 +202,3 @@
 </script>
 </body>
 </html>
-
