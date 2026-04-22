@@ -3,6 +3,7 @@
 use Livewire\Component;
 use App\Models\Note;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 
 new class extends Component
 {
@@ -21,6 +22,7 @@ new class extends Component
         ];
     }
 
+    #[On('open-modal')]
     public function openModal() {
         $this->reset(['title', 'content', 'category']);
         $this->showModal = true;
@@ -44,9 +46,27 @@ new class extends Component
         session()->flash('success', 'Note saved!');
     }
 
+/* 
+
+[ADDED] deleteNote method to allow users to delete their notes. 
+This method checks that the note belongs to the authenticated user 
+before deleting it, ensuring that users can only delete their own notes. 
+The delete button is added to each note card in the UI, and a 
+confirmation prompt is shown before deletion to prevent accidental deletions.
+
+*/
+
+    public function deleteNote($noteId)
+    {
+        Note::where('user_id', Auth::id())
+            ->where('id', $noteId)
+            ->firstOrFail()
+            ->delete();
+    }
+
     public function render()
     {
-        return view('livewire.NoteManager', [
+        return view('livewire.note-manager', [
             'notes' => Note::where('user_id', Auth::id())->latest()->get()
         ]);
     }

@@ -72,6 +72,19 @@ new class extends Component
         $this->notes = Note::where('user_id', Auth::id())->latest()->get();
         $this->closeModal();
     }
+
+/*
+
+[ADDED] "deleteNote()" to handle note deletion. It verifies ownership, 
+deletes the note, and refreshes the list — with a confirmation prompt to prevent accidental deletions
+
+*/
+
+     public function deleteNote($id)
+    {
+        Note::where('id', $id)->where('user_id', Auth::id())->delete();
+        $this->notes = Note::where('user_id', Auth::id())->latest()->get();
+    }
 };
 ?>
 
@@ -84,7 +97,8 @@ new class extends Component
     {{-- Notes Grid --}}
     <div class="notes-grid">
         @forelse ($notes as $note)
-            <div class="note-card">
+            <div class="note-card" style="position: relative; padding-bottom: 40px;">
+
                 <div class="note-date">{{ $note->created_at->format('F j, Y') }}</div>
                 @if ($note->title)
                     <div class="note-title">{{ $note->title }}</div>
@@ -93,13 +107,23 @@ new class extends Component
                 @if ($note->category)
                     <span class="note-tag">{{ $note->category }}</span>
                 @endif
+                
+                <button wire:click="deleteNote({{ $note->id }})"
+                    wire:confirm="Delete this note forever?"
+                    style="position: absolute; bottom: 12px; right: 12px; background: rgba(177, 0, 0, 0.719); color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px; cursor: pointer; border: none;">
+                    Delete Note
+                </button>
             </div>
         @empty
             <p style="color: gray;">No notes yet. Start writing!</p>
         @endforelse
     </div>
 
-    {{-- Modal --}}
+    {{-- 
+    A "MODAL" is a popup window that appears on top of the current page, 
+    blocking interaction with the rest of the page until you close it.
+    --}}
+    
     @if ($showModal)
         <div class="modal-overlay open">
             <div class="modal">
