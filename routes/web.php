@@ -19,6 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/progress',  [DashboardController::class, 'progress'])->name('progress');
     Route::get('/exercises', [DashboardController::class, 'exercises'])->name('exercises');
     Route::get('/settings',  [DashboardController::class, 'settings'])->name('settings');
+    Route::post('/progress/photos', [App\Http\Controllers\ProgressController::class, 'store'])->name('progress.photos.store');
+    Route::delete('/progress/photos/{id}', [App\Http\Controllers\ProgressController::class, 'destroy'])->name('progress.photos.destroy');
 });
 
 require __DIR__.'/auth.php';

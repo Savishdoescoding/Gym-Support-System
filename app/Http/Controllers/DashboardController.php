@@ -9,7 +9,11 @@ class DashboardController extends Controller
 {
     public function home()      { return view('webpage'); }
     public function discover()  { return view('discover'); }
-    public function progress()  { return view('progress'); }
+   public function progress() {
+    $photos = \App\Models\ProgressPhoto::where('user_id', auth()->id())
+                ->orderBy('date', 'desc')->get();
+    return view('progress', compact('photos'));
+}
     public function exercises() { return view('exercises'); }
     public function settings()  { return view('settings'); }
 }

@@ -23,18 +23,15 @@
   <div class="main">
     <div class="topbar">
       <span class="topbar-title">Progress</span>
-      <div class="topbar-right" id="topbar-right">
-        <button class="btn-action" onclick="openModal('photo-modal')">+ Add Photo</button>
-      </div>
+      <div class="topbar-right" id="topbar-right"></div>
     </div>
     <div class="tab-nav">
-      <div class="tab active" onclick="switchTab('history', this)">History</div>
-      <div class="tab" onclick="switchTab('photos', this)">Progress Photos</div>
+      <div class="tab {{ session('active_tab') === 'photos' ? '' : 'active' }}" onclick="switchTab('history', this)">History</div>
+      <div class="tab {{ session('active_tab') === 'photos' ? 'active' : '' }}" onclick="switchTab('photos', this)">Progress Photos</div>
     </div>
     <div class="content">
 
-
-      <div class="panel active" id="panel-history">
+      <div class="panel {{ session('active_tab') === 'photos' ? '' : 'active' }}" id="panel-history">
         <div class="cal-header">
           <div class="cal-month" id="cal-month-label">April 2026</div>
           <div class="cal-controls">
@@ -63,28 +60,34 @@
         </div>
       </div>
 
-
-      <div class="panel" id="panel-photos">
-        <div class="upload-box" onclick="openModal('photo-modal')">
+      <div class="panel {{ session('active_tab') === 'photos' ? 'active' : '' }}" id="panel-photos">
+        <div class="upload-box" id="upload-box"
+             ondragover="event.preventDefault(); this.classList.add('dragover')"
+             ondragleave="this.classList.remove('dragover')"
+             ondrop="handleDrop(event)">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <p>Drag and drop your photo here</p>
           <span>or click to upload</span>
         </div>
         <div class="photos-grid">
-          <div class="photo-card">
-            <div class="photo-placeholder">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              <span>Photo</span>
-            </div>
-            <div class="photo-info"><div class="photo-date">April 1, 2026</div><div class="photo-tag">Front view</div></div>
-          </div>
-          <div class="photo-card">
-            <div class="photo-placeholder">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              <span>Photo</span>
-            </div>
-            <div class="photo-info"><div class="photo-date">March 15, 2026</div><div class="photo-tag">Side view</div></div>
-          </div>
+         @forelse($photos as $photo)
+<div class="photo-card">
+  <div class="photo-placeholder" style="padding:0;overflow:hidden;">
+    <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="{{ $photo->label }}" style="width:100%;height:100%;object-fit:cover;">
+  </div>
+  <div class="photo-info">
+    <div class="photo-date">{{ \Carbon\Carbon::parse($photo->date)->format('F j, Y') }}</div>
+    <div class="photo-tag">{{ $photo->label }}</div>
+    <form action="{{ route('progress.photos.destroy', $photo->id) }}" method="POST" style="margin-top:8px;">
+      @csrf
+      @method('DELETE')
+      <button type="submit" class="btn-delete" onclick="return confirm('Delete this photo?')">DELETE</button>
+    </form>
+  </div>
+</div>
+@empty
+<p style="color:#888;">No photos yet.</p>
+@endforelse
         </div>
       </div>
 
@@ -92,6 +95,7 @@
   </div>
 </div>
 
+<input type="file" id="hidden-file-input" accept="image/*" style="display:none">
 
 <div class="modal-overlay" id="photo-modal">
   <div class="modal">
@@ -99,13 +103,23 @@
       <span class="modal-title">Add Progress Photo</span>
       <button class="modal-close" onclick="closeModal('photo-modal')">✕</button>
     </div>
-    <div class="field"><label>Date</label><input type="date" id="photo-date"></div>
-    <div class="field"><label>Label / View</label><select><option>Front view</option><option>Side view</option><option>Back view</option><option>Other</option></select></div>
-    <div class="field"><label>Photo</label><input type="file" accept="image/*"></div>
-    <div class="modal-footer">
-      <button class="btn-cancel" onclick="closeModal('photo-modal')">Cancel</button>
-      <button class="btn-save" onclick="closeModal('photo-modal')">Save Photo</button>
-    </div>
+    <form id="photo-form" action="{{ route('progress.photos.store') }}" method="POST" enctype="multipart/form-data">
+      @csrf
+      <input type="file" name="photo" id="form-file-input" style="display:none" accept="image/*">
+      <div class="field"><label>Date</label><input type="date" name="date" id="photo-date"></div>
+      <div class="field"><label>Label / View</label>
+        <select name="label">
+          <option>Front view</option>
+          <option>Side view</option>
+          <option>Back view</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" onclick="closeModal('photo-modal')">Cancel</button>
+        <button type="submit" class="btn-save">Save Photo</button>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -132,7 +146,7 @@
       const ds = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
       const isToday = today.getFullYear()===year && today.getMonth()===month && today.getDate()===d;
       let dots = '';
-      if (noteData[ds])       dots += '<div class="dot dot-note"></div>';
+      if (noteData[ds]) dots += '<div class="dot dot-note"></div>';
       if (photoData.includes(ds)) dots += '<div class="dot dot-photo"></div>';
       html += `<div class="cal-day${isToday?' today':''}" onclick="showDayDetail('${ds}',${d})"><div class="day-num">${d}</div><div class="day-dots">${dots}</div></div>`;
     }
@@ -148,7 +162,7 @@
     document.getElementById('dd-note').textContent = noteData[ds] || 'No note for this day.';
     document.getElementById('day-detail').classList.add('open');
   }
-  const tabActions = { history: '', photos: '<button class="btn-action" onclick="openModal(\'photo-modal\')">+ Add Photo</button>' };
+  const tabActions = { history: '', photos: '' };
   function switchTab(name, el) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -161,6 +175,35 @@
   document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if(e.target===o) o.classList.remove('open'); }));
   document.getElementById('photo-date').value = new Date().toISOString().split('T')[0];
   renderCalendar();
+
+  // Click upload box to pick file
+  document.getElementById('upload-box').addEventListener('click', function() {
+    document.getElementById('hidden-file-input').click();
+  });
+
+  // File picked via click
+  document.getElementById('hidden-file-input').addEventListener('change', function() {
+    if (this.files[0]) {
+      const dt = new DataTransfer();
+      dt.items.add(this.files[0]);
+      document.getElementById('form-file-input').files = dt.files;
+      openModal('photo-modal');
+    }
+  });
+
+  // File dropped
+  function handleDrop(event) {
+    event.preventDefault();
+    document.getElementById('upload-box').classList.remove('dragover');
+    const file = event.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      document.getElementById('hidden-file-input').files = dt.files;
+      document.getElementById('form-file-input').files = dt.files;
+      openModal('photo-modal');
+    }
+  }
 </script>
 </body>
 </html>

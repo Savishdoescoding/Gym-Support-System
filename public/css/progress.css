@@ -212,6 +212,8 @@
   background: var(--dark2);
   border: 1px solid var(--border);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .photo-placeholder {
   height: 180px;
@@ -221,6 +223,8 @@
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  flex-shrink: 0;
 }
 .photo-placeholder svg {
   width: 32px;
@@ -243,4 +247,25 @@
   margin-bottom: 4px;
 }
 .photo-tag { font-size: 12px; color: var(--muted); }
+
+.photo-info {
+  padding: 12px;
+  flex-shrink: 0;
+}
+.btn-delete {
+  background: none;
+  border: 1px solid rgba(255,0,0,0.3);
+  color: rgba(255,80,80,0.8);
+  font-size: 11px;
+  padding: 4px 10px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  width: 100%;
+  margin-top: 8px;
+  transition: all 0.2s;
+}
+.btn-delete:hover {
+  border-color: red;
+  color: red;
+}
 
