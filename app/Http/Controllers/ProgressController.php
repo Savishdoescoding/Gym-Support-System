@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\ProgressPhoto;
 
 class ProgressController extends Controller
@@ -18,7 +19,7 @@ class ProgressController extends Controller
         $path = $request->file('photo')->store('progress_photos', 'public');
 
         ProgressPhoto::create([
-            'user_id'    => auth()->id(),
+            'user_id'    => Auth::id(),
             'date'       => $request->date,
             'label'      => $request->label,
             'photo_path' => $path,
@@ -28,7 +29,7 @@ class ProgressController extends Controller
     }
     public function destroy($id)
     {
-        $photo = \App\Models\ProgressPhoto::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+        $photo = \App\Models\ProgressPhoto::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         \Illuminate\Support\Facades\Storage::disk('public')->delete($photo->photo_path);
         $photo->delete();
         return redirect()->route('progress')->with('active_tab', 'photos');
