@@ -1,3 +1,5 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,6 +40,13 @@
             <button class="cal-btn" onclick="changeMonth(-1)">&#8249;</button>
             <button class="cal-btn" onclick="changeMonth(1)">&#8250;</button>
             <button class="cal-today" onclick="goToday()">Today</button>
+            @if(!Auth::user()->google_access_token)
+                <a href="{{ route('google.calendar.connect') }}" class="cal-today">
+                    🗓 Connect Google Calendar
+                </a>
+            @else
+                <span style="color:green; font-size:12px;">✅ Calendar Connected</span>
+            @endif
           </div>
         </div>
         <div class="cal-grid">
@@ -57,6 +66,9 @@
             <div class="dd-label">Note</div>
             <div class="dd-note" id="dd-note">No note for this day.</div>
           </div>
+          <di class="dd-section">
+            <div class="dd-label">Progress Photo</div>
+            <div class="dd-note" id="dd-photo">No photo for this day.</div>
         </div>
       </div>
 
@@ -73,7 +85,7 @@
          @forelse($photos as $photo)
 <div class="photo-card">
   <div class="photo-placeholder" style="padding:0;overflow:hidden;">
-    <img src="{{ asset('storage/' . $photo->photo_path) }}" alt="{{ $photo->label }}" style="width:100%;height:100%;object-fit:cover;">
+    <img src="{{ $photo->photo_path }}" alt="{{ $photo->label }}" style="width:100%;height:100%;object-fit:cover;">
   </div>
   <div class="photo-info">
     <div class="photo-date">{{ \Carbon\Carbon::parse($photo->date)->format('F j, Y') }}</div>
@@ -81,7 +93,7 @@
     <form action="{{ route('progress.photos.destroy', $photo->id) }}" method="POST" style="margin-top:8px;">
       @csrf
       @method('DELETE')
-      <button type="submit" class="btn-delete" onclick="return confirm('Delete this photo?')">DELETE</button>
+      <button type="button" class="btn-delete" onclick="openDeleteModal(this)">DELETE</button>
     </form>
   </div>
 </div>
@@ -124,14 +136,10 @@
 </div>
 
 <script>
-  const noteData = {
-    '2026-04-06': 'Felt strong during bench press. Hit a new PR at 80kg × 5.',
-    '2026-04-04': 'Rest day. Stretching and foam rolling. Weight down to 74.2kg.',
-    '2026-04-02': 'Cardio — 5km in 28 mins. Legs tired but pushed through.',
-    '2026-03-30': 'Great leg day. Squats, lunges, leg press.',
-  };
-  const photoData = ['2026-04-01', '2026-03-15'];
-  let current = new Date(2026, 3, 1);
+    const noteData = @json($noteData);
+    const photoData = @json($photoData);
+    let current = new Date();
+    current.setDate(1);
 
   function renderCalendar() {
     const year = current.getFullYear(), month = current.getMonth();
@@ -160,8 +168,9 @@
     const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     document.getElementById('dd-title').textContent = `${months[current.getMonth()]} ${d}, ${current.getFullYear()}`;
     document.getElementById('dd-note').textContent = noteData[ds] || 'No note for this day.';
+    document.getElementById('dd-photo').textContent = photoData.includes(ds) ? '📸 Progress photo uploaded' : 'No photo for this day.';
     document.getElementById('day-detail').classList.add('open');
-  }
+}
   const tabActions = { history: '', photos: '' };
   function switchTab(name, el) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));

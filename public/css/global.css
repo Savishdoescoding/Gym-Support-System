@@ -541,3 +541,37 @@ a {
     padding: 2px 8px;
     letter-spacing: 1px;
 }
+
+form {
+    margin: 0;
+    padding: 0;
+    display: contents;
+}
+
+form .sb-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 11px 20px !important;
+    cursor: pointer !important;
+    color: rgba(255, 255, 255, 0.45) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    text-decoration: none !important;
+    transition: all 0.2s !important;
+    border-left: 3px solid transparent !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-radius: 0 !important;
+    background: none !important;
+    width: 100% !important;
+    font-family: var(--font-body) !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+form .sb-item:hover {
+    color: var(--white) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+}

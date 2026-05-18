@@ -24,9 +24,6 @@
     <div class="topbar"><span class="topbar-title">Settings</span></div>
     <div class="tab-nav">
       <div class="tab active" onclick="switchTab('account',this)">Account</div>
-      <div class="tab" onclick="switchTab('profile',this)">Profile</div>
-      <div class="tab" onclick="switchTab('privacy',this)">Privacy</div>
-      <div class="tab" onclick="switchTab('data',this)">Data Controls</div>
     </div>
     <div class="content">
 
@@ -63,114 +60,15 @@
             <span class="sr-label">Account Type</span>
             <div class="sr-right"><span class="badge-type">Pro</span></div>
           </div>
-        </div>
-        <div class="settings-group">
-          <div class="sg-title">Upgrade Your Plan</div>
-          <div class="membership-cards">
-            <div class="mem-card" onclick="selectPlan(this)">
-              <div class="mem-left"><div><div class="mem-plan">Basic Gym Rat<span class="mem-badge">BASIC</span></div><div class="mem-desc">Essential gym access and tracking tools</div></div></div>
-              <div><div class="mem-price">₱799</div><div class="mem-period">/month</div></div>
-            </div>
-            <div class="mem-card selected" onclick="selectPlan(this)">
-              <div class="mem-left"><div><div class="mem-plan">Pro Gym Rat<span class="mem-badge" style="background:var(--cyan)">PRO</span></div><div class="mem-desc">Full tracking suite + group classes</div></div></div>
-              <div><div class="mem-price">₱1,499</div><div class="mem-period">/month</div></div>
-            </div>
-            <div class="mem-card" onclick="selectPlan(this)">
-              <div class="mem-left"><div><div class="mem-plan">Elite Gym Rat <span class="mem-badge" style="background:#a78bfa">ELITE</span></div><div class="mem-desc">Unlimited access + personal trainer + nutrition</div></div></div>
-              <div><div class="mem-price">₱2,499</div><div class="mem-period">/month</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="panel" id="panel-profile">
-        <div class="profile-photo-section">
-          <div class="profile-avatar-lg">JD</div>
-          <div class="profile-photo-actions">
-            <button class="btn-outline">Upload Photo</button>
-            <div class="photo-hint">JPG or PNG, max 2MB</div>
-          </div>
-        </div>
-        <div class="settings-group">
-          <div class="sg-title">Personal Information</div>
           <div class="setting-row">
-            <span class="sr-label">Birthday</span>
-            <input type="date" class="date-input" value="2000-05-15">
-          </div>
-          <div class="setting-row">
-            <span class="sr-label">Gender</span>
-            <div class="radio-group horizontal">
-              <div class="radio-opt selected" onclick="selectRadio(this,'gender')"><div class="radio-dot checked"></div><div class="radio-text"><strong>Male</strong></div></div>
-              <div class="radio-opt" onclick="selectRadio(this,'gender')"><div class="radio-dot"></div><div class="radio-text"><strong>Female</strong></div></div>
-            </div>
-          </div>
-          <div class="setting-row">
-            <span class="sr-label">Unit System</span>
-            <div class="radio-group">
-              <div class="radio-opt" onclick="selectRadio(this,'unit')"><div class="radio-dot"></div><div class="radio-text"><strong>Imperial (inches / lbs)</strong><span>Use pounds and inches for measurements</span></div></div>
-              <div class="radio-opt selected" onclick="selectRadio(this,'unit')"><div class="radio-dot checked"></div><div class="radio-text"><strong>Metric (cm / kg)</strong><span>Use kilograms and centimeters for measurements</span></div></div>
-            </div>
-          </div>
-          <div class="setting-row">
-            <span class="sr-label">Fitness Level</span>
-            <div class="radio-group">
-              <div class="radio-opt" onclick="selectRadio(this,'level')"><div class="radio-dot"></div><div class="radio-text"><strong>Beginner</strong><span>New to lifting weights and unfamiliar with most exercises</span></div></div>
-              <div class="radio-opt selected" onclick="selectRadio(this,'level')"><div class="radio-dot checked"></div><div class="radio-text"><strong>Intermediate</strong><span>Familiar with most exercises and comfortable working out</span></div></div>
-              <div class="radio-opt" onclick="selectRadio(this,'level')"><div class="radio-dot"></div><div class="radio-text"><strong>Advanced</strong><span>Experienced athlete training consistently for 2+ years</span></div></div>
-            </div>
-          </div>
-        </div>
-        <button class="btn-save-settings">Save Profile</button>
-      </div>
+            <span class="sr-label">Google Calendar</span>
+            <div class="sr-right">
+                @if(Auth::user()->google_access_token)
+                    <span class="badge-type" style="background:green">Connected</span>
+                @else
+                    <a href="{{ route('google.calendar.connect') }}" class="btn-link">Connect Google Calendar</a>
+                @endif
 
-
-      <div class="panel" id="panel-privacy">
-        <div class="settings-group">
-          <div class="sg-title">Visibility</div>
-          <div class="toggle-row"><div class="toggle-info"><strong>Public Profile</strong><span>Allow other members to view your profile and stats</span></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="toggle-row"><div class="toggle-info"><strong>Show in Member Directory</strong><span>Appear in the gym's member list</span></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="toggle-row"><div class="toggle-info"><strong>Show Progress Photos</strong><span>Let other members see your progress photo timeline</span></div><label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label></div>
-        </div>
-        <div class="settings-group">
-          <div class="sg-title">Notifications</div>
-          <div class="toggle-row"><div class="toggle-info"><strong>Email Notifications</strong><span>Receive emails about membership renewals and updates</span></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-          <div class="toggle-row"><div class="toggle-info"><strong>Q&amp;A Reply Alerts</strong><span>Get notified when someone answers your questions</span></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-        </div>
-        <button class="btn-save-settings">Save Privacy Settings</button>
-      </div>
-
-
-      <div class="panel" id="panel-data">
-        <div class="settings-group">
-          <div class="sg-title">Your Data</div>
-          <div class="setting-row">
-            <span class="sr-label">Export Data</span>
-            <div>
-              <div style="font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:300">Download a copy of all your gym data including check-ins, workouts, and body metrics.</div>
-              <button class="btn-outline">Download My Data (.csv)</button>
-            </div>
-          </div>
-          <div class="setting-row">
-            <span class="sr-label">Workout History</span>
-            <div>
-              <div style="font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:300">You have <strong style="color:var(--white)">148 logged sessions</strong> since joining.</div>
-              <button class="btn-outline">View Full History</button>
-            </div>
-          </div>
-        </div>
-        <div class="settings-group">
-          <div class="sg-title" style="color:var(--danger)">Danger Zone</div>
-          <div class="danger-section">
-            <div class="danger-title">Irreversible Actions</div>
-            <div class="danger-row">
-              <div><strong>Clear All Workout Data</strong><p>Permanently delete all your logged workouts and exercise history.</p></div>
-              <button class="btn-danger">Clear Workouts</button>
-            </div>
-            <div class="danger-row">
-              <div><strong>Delete Account</strong><p>Permanently delete your account and all associated data. This cannot be undone.</p></div>
-              <button class="btn-danger">Delete Account</button>
-            </div>
           </div>
         </div>
       </div>

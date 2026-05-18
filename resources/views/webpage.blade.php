@@ -11,14 +11,6 @@
 
   <nav class="navbar">
     <a href="index.html" class="nav-logo">GYM RAT</a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="#">Service</a></li>
-      <li><a href="#">Programs</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="#">Contact</a></li>
-      <li><a href="#">FAQ</a></li>
-    </ul>
     <div class="nav-right">
       <a href="{{ route('register') }}" class="btn-register">Register</a>
       <a href="{{ route('login') }}" class="btn-login">Login ▶</a>
@@ -99,64 +91,6 @@
       <p>Manage plans, view renewal dates, and review payment history — all in one place.</p>
     </div>
   </div>
-
-
-  <footer>
-    <div class="footer-inner">
-      <div>
-        <div class="footer-logo">GYM</div>
-        <div class="footer-socials">
-          <a href="#" title="Twitter">𝕏</a>
-          <a href="#" title="Instagram">IG</a>
-          <a href="#" title="YouTube">YT</a>
-          <a href="#" title="LinkedIn">in</a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Use Cases</h4>
-        <ul>
-          <li><a href="#">Attendance Tracking</a></li>
-          <li><a href="#">Workout Logging</a></li>
-          <li><a href="#">Body Metrics</a></li>
-          <li><a href="#">Member Management</a></li>
-          <li><a href="#">Payment Tracking</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="#">Features</a></li>
-          <li><a href="#">Membership Plans</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Programs</a></li>
-          <li><a href="#">Schedule</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Support</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Pages</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="{{ route('discover') }}">Discover</a></li>
-          <li><a href="dashboard/progress.html">Progress</a></li>
-          <li><a href="dashboard/exercises.html">Exercises</a></li>
-          <li><a href="dashboard/settings.html">Settings</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 Gym [Name]. All rights reserved.</p>
-      <p>Built with Laravel & PHP</p>
-    </div>
-  </footer>
 
 </body>
 </html>

@@ -82,17 +82,26 @@
           <div class="filter-pill" onclick="togglePill(this)">Arms</div>
           <div class="filter-pill" onclick="togglePill(this)">Legs</div>
           <div class="filter-pill" onclick="togglePill(this)">Core</div>
-          <div class="filter-pill" onclick="togglePill(this)">Cardio</div>
         </div>
-        <div class="db-grid">
-          <div class="db-row"><div class="db-row-left"><div class="db-ico"><svg viewBox="0 0 24 24"><path d="M6.5 6.5h11M3 10h3.5M17.5 10H21"/></svg></div><div><div class="db-name">Bench Press</div><div class="db-group">Chest · Barbell</div></div></div><button class="btn-add-ex" onclick="addToProgress('Bench Press')">+ Add</button></div>
-          <div class="db-row"><div class="db-row-left"><div class="db-ico"><svg viewBox="0 0 24 24"><path d="M6.5 6.5h11M3 14h3.5M17.5 14H21"/></svg></div><div><div class="db-name">Deadlift</div><div class="db-group">Back · Barbell</div></div></div><button class="btn-add-ex" onclick="addToProgress('Deadlift')">+ Add</button></div>
-          <div class="db-row"><div class="db-row-left"><div class="db-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="db-name">Pull-up</div><div class="db-group">Back · Body Weight</div></div></div><button class="btn-add-ex" onclick="addToProgress('Pull-up')">+ Add</button></div>
-          <div class="db-row"><div class="db-row-left"><div class="db-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg></div><div><div class="db-name">Squat</div><div class="db-group">Legs · Barbell</div></div></div><button class="btn-add-ex" onclick="addToProgress('Squat')">+ Add</button></div>
-          <div class="db-row"><div class="db-row-left"><div class="db-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="db-name">Overhead Press</div><div class="db-group">Shoulders · Barbell</div></div></div><button class="btn-add-ex" onclick="addToProgress('Overhead Press')">+ Add</button></div>
-          <div class="db-row"><div class="db-row-left"><div class="db-ico"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67"/></svg></div><div><div class="db-name">Dumbbell Curl</div><div class="db-group">Arms · Dumbbell</div></div></div><button class="btn-add-ex" onclick="addToProgress('Dumbbell Curl')">+ Add</button></div>
-          <div class="db-row"><div class="db-row-left"><div class="db-ico"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/></svg></div><div><div class="db-name">Plank</div><div class="db-group">Core · Body Weight</div></div></div><button class="btn-add-ex" onclick="addToProgress('Plank')">+ Add</button></div>
-          <div class="db-row"><div class="db-row-left"><div class="db-ico"><svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg></div><div><div class="db-name">Treadmill Run</div><div class="db-group">Cardio · Machine</div></div></div><button class="btn-add-ex" onclick="addToProgress('Treadmill Run')">+ Add</button></div>
+        <div class="db-grid" id="db-grid">
+        @forelse($exercises as $exercise)
+        <div class="db-row"
+            data-muscle="{{ strtolower($exercise->muscle) }}"
+            data-equipment="{{ strtolower($exercise->equipment) }}">
+            <div class="db-row-left">
+            <div class="db-ico">
+                <svg viewBox="0 0 24 24"><path d="M6.5 6.5h11M3 10h3.5M17.5 10H21"/></svg>
+            </div>
+            <div>
+                <div class="db-name">{{ $exercise->name }}</div>
+                <div class="db-group">{{ $exercise->muscle }} · {{ $exercise->equipment }}</div>
+            </div>
+            </div>
+            <button class="btn-add-ex" onclick="addToProgress('{{ $exercise->name }}')">+ Add</button>
+        </div>
+        @empty
+        <p style="color:#888;">No exercises found.</p>
+        @endforelse
         </div>
       </div>
 
@@ -152,7 +161,53 @@
     const actions = { custom: '<button class="btn-action" onclick="openModal(\'create-modal\')">+ Create Custom Exercise</button>', database: '' };
     document.getElementById('topbar-right').innerHTML = actions[name]||'';
   }
-  function togglePill(el) { document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active')); el.classList.add('active'); }
+// Search
+document.querySelector('#panel-database .search-box input').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('.db-row').forEach(row => {
+        const name = row.querySelector('.db-name').textContent.toLowerCase();
+        row.style.display = name.includes(query) ? '' : 'none';
+    });
+});
+
+// Equipment filter
+document.querySelector('.filter-select').addEventListener('change', function() {
+    const equipment = this.value.toLowerCase().replace(' ', '-');
+    document.querySelectorAll('.db-row').forEach(row => {
+        if (this.value === 'All Equipment') {
+            row.style.display = '';
+        } else {
+            row.style.display = row.dataset.equipment === equipment ? '' : 'none';
+        }
+    });
+});
+
+// Muscle filter pills
+function togglePill(el) {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    const muscle = el.textContent.toLowerCase();
+
+    const muscleMap = {
+        'all': [],
+        'chest': ['chest'],
+        'back': ['middle back', 'lower back', 'lats', 'traps'],
+        'shoulders': ['shoulders'],
+        'arms': ['biceps', 'triceps', 'forearms'],
+        'legs': ['quadriceps', 'hamstrings', 'calves', 'glutes', 'adductors', 'abductors'],
+        'core': ['abdominals'],
+        'cardio': ['cardiovascular system']
+    };
+
+    document.querySelectorAll('.db-row').forEach(row => {
+        if (muscle === 'all') {
+            row.style.display = '';
+        } else {
+            const rowMuscle = row.dataset.muscle;
+            row.style.display = muscleMap[muscle]?.includes(rowMuscle) ? '' : 'none';
+        }
+    });
+}
   function openModal(id)  { document.getElementById(id).classList.add('open'); }
   function closeModal(id) { document.getElementById(id).classList.remove('open'); }
   document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
