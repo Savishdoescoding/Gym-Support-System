@@ -34,8 +34,12 @@ class DashboardController extends Controller
     }
 
     public function exercises() {
-        $exercises = \App\Models\Exercise::all();
-        return view('exercises', compact('exercises'));
+    $exercises = \App\Models\Exercise::all();
+    $loggedToday = \App\Models\WorkoutLog::where('user_id', Auth::id())
+        ->where('date', today())
+        ->pluck('exercise_name')
+        ->toArray();
+    return view('exercises', compact('exercises', 'loggedToday'));
     }
 
     public function settings() {

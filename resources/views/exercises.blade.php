@@ -17,50 +17,33 @@
       <a class="sb-item active" href="{{ route('exercises') }}"><svg viewBox="0 0 24 24"><path d="M6.5 6.5h11M6.5 17.5h11M3 10h3.5M3 14h3.5M17.5 10H21M17.5 14H21"/></svg>Exercises</a>
       <div class="sb-section">Account</div>
       <a class="sb-item" href="{{ route('settings') }}"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</a>
+        <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="sb-item">
+            <svg viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            Logout
+        </button>
+    </form>
     </nav>
-    <div class="sb-bottom"><div class="sb-user"><div class="sb-avatar">MB</div><div><div class="sb-uname">Marc Kristan Bautista</div><div class="sb-urole">Pro Member</div></div></div></div>
-  </aside>
+    <div class="sb-bottom"><div class="sb-user"><div class="sb-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 2)) }}</div><div class="sb-uname">{{ Auth::user()->name }}</div>  </aside>
   <div class="main">
     <div class="topbar">
       <span class="topbar-title">Exercises</span>
-      <div class="topbar-right" id="topbar-right">
-        <button class="btn-action" onclick="openModal('create-modal')">+ Create Custom Exercise</button>
-      </div>
+      <div class="topbar-right" id="topbar-right"></div>
     </div>
     <div class="tab-nav">
-      <div class="tab active" onclick="switchTab('custom', this)">Custom Exercises</div>
+      <div class="tab active" onclick="switchTab('custom', this)">Today's Log</div>
       <div class="tab" onclick="switchTab('database', this)">Exercise Database</div>
     </div>
     <div class="content">
 
 
-      <div class="panel active" id="panel-custom">
-        <div class="search-row">
-          <div class="search-box">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-            <input type="text" placeholder="Search your exercises...">
-          </div>
-        </div>
-        <div class="ex-grid">
-          <div class="ex-card">
-            <div class="ex-thumb">
-              <svg viewBox="0 0 24 24"><path d="M6.5 6.5h11M6.5 17.5h11M3 10h3.5M3 14h3.5M17.5 10H21M17.5 14H21"/></svg>
-              <button class="ex-menu">⋯</button>
-            </div>
-            <div class="ex-info">
-              <div class="ex-name">Resistance Band Pull</div>
-              <div class="ex-meta">Back / Resistance Band</div>
-              <div class="ex-muscle">Back</div>
-            </div>
-          </div>
-          <div class="ex-card ex-card-add" onclick="openModal('create-modal')">
-            <div class="ex-card-add-inner">
-              <div class="ex-card-add-icon">+</div>
-              <div class="ex-card-add-label">Create New</div>
-            </div>
-          </div>
-        </div>
-      </div>
+<div class="panel active" id="panel-custom">
+    <div id="workout-list" style="display:flex; flex-direction:column; gap:8px;"></div>
+    <div id="empty-log" style="color:rgba(255,255,255,0.3); font-size:13px; margin-top:20px;">
+      No exercises added yet today. Go to Exercise Database to add some.
+    </div>
+  </div>
 
 
       <div class="panel" id="panel-database">
@@ -83,6 +66,7 @@
           <div class="filter-pill" onclick="togglePill(this)">Legs</div>
           <div class="filter-pill" onclick="togglePill(this)">Core</div>
         </div>
+
         <div class="db-grid" id="db-grid">
         @forelse($exercises as $exercise)
         <div class="db-row"
@@ -97,7 +81,7 @@
                 <div class="db-group">{{ $exercise->muscle }} · {{ $exercise->equipment }}</div>
             </div>
             </div>
-            <button class="btn-add-ex" onclick="addToProgress('{{ $exercise->name }}')">+ Add</button>
+            <button class="btn-add-ex" onclick="addToProgress('{{ $exercise->name }}', '{{ $exercise->muscle }}', '{{ $exercise->equipment }}', this)">+ Add</button>
         </div>
         @empty
         <p style="color:#888;">No exercises found.</p>
@@ -158,7 +142,7 @@
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     el.classList.add('active');
     document.getElementById('panel-'+name).classList.add('active');
-    const actions = { custom: '<button class="btn-action" onclick="openModal(\'create-modal\')">+ Create Custom Exercise</button>', database: '' };
+   const actions = { custom: '', database: '' };
     document.getElementById('topbar-right').innerHTML = actions[name]||'';
   }
 // Search
@@ -211,12 +195,47 @@ function togglePill(el) {
   function openModal(id)  { document.getElementById(id).classList.add('open'); }
   function closeModal(id) { document.getElementById(id).classList.remove('open'); }
   document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
-  function addToProgress(name) {
-    const t = document.getElementById('toast');
-    t.textContent = `"${name}" added to your progress log`;
-    t.style.display = 'block';
-    setTimeout(()=>t.style.display='none', 2500);
-  }
+  function addToProgress(name, muscle, equipment, btn) {
+    fetch('{{ route("workout.log.store") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({ exercise_name: name, muscle: muscle, equipment: equipment })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            btn.textContent = '✓ Added';
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+            addToWorkoutList(name, muscle, equipment); // 👈 add this
+            const t = document.getElementById('toast');
+            t.textContent = `"${name}" added to your progress log`;
+            t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 2500);
+        }
+    });
+}
+
+function addToWorkoutList(name, muscle, equipment) {
+    const list = document.getElementById('workout-list');
+    document.getElementById('empty-log').style.display = 'none'; // hide empty msg
+    const item = document.createElement('div');
+    item.style.cssText = 'display:flex; align-items:center; gap:10px; padding:10px 14px; background:#1c1c1c; border:1px solid rgba(255,255,255,0.08);';
+    item.innerHTML = `<span style="color:#00bcd4;">✅</span> <span style="font-size:13px;">${name}</span> <span style="font-size:11px; color:rgba(255,255,255,0.4);">${muscle} · ${equipment}</span>`;
+    list.appendChild(item);
+}
+
+// Load today's workout on page load
+window.addEventListener('load', function() {
+    fetch('{{ route("workout.log.today") }}')
+    .then(res => res.json())
+    .then(logs => {
+        logs.forEach(log => addToWorkoutList(log.exercise_name, log.muscle ?? '', log.equipment ?? ''));
+    });
+});
 </script>
 </body>
 </html>
