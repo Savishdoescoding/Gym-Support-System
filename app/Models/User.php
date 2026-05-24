@@ -61,6 +61,8 @@ class User extends Authenticatable
         'email',
         'height',
         'weight',
+        'target_weight',
+        'goal',
         'body_type',
         'username',
         'password',
