@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/progress/photos/{id}', [App\Http\Controllers\ProgressController::class, 'destroy'])->name('progress.photos.destroy');
     Route::get('/recommendations', [App\Http\Controllers\RecommendationController::class, 'index'])->name('recommendations');
     Route::post('/recommendations/calendar', [App\Http\Controllers\RecommendationController::class, 'saveToCalendar'])->name('recommendations.calendar');
+    Route::post('/profile/goal', [App\Http\Controllers\ProfileGoalController::class, 'update'])->name('profile.goal.update');
 
     //* Google Calendar integration
     Route::get('/google/calendar/create', [GoogleCalendarController::class, 'createEventForm'])->name('google.calendar.create');
