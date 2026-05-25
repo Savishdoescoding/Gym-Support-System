@@ -58,7 +58,7 @@
           <div style="background:#1e1e2e;border-radius:12px;padding:20px;color:#fff;">
             <div style="font-weight:600;font-size:15px;margin-bottom:6px;">{{ $exercise['name'] }}</div>
             <div style="font-size:12px;opacity:.6;margin-bottom:4px;">
-              Category: {{ ucfirst($exercise['category']) }} &nbsp;|&nbsp; Level: {{ ucfirst($exercise['level']) }}
+              Category: {{ ucfirst($exercise['category']) }} &nbsp;|&nbsp; Level: {{ ucfirst($exercise['level'] ?? 'N/A') }}
             </div>
             <div style="font-size:12px;opacity:.6;">
               Equipment: {{ ucfirst($exercise['equipment']) }}
